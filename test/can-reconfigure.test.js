@@ -8,6 +8,8 @@ const canReconfigure = (from, to) => {
   if (typeof to !== 'string') throw new Error('to parameter must be a string')
   if (from.length !== to.length) return false
 
+  if (new Set(from.split('')).size !== new Set(to.split('')).size) return false
+
   return true
 }
 
@@ -32,5 +34,8 @@ describe('can-configure', () => {
   })
   it('should return false if from and to have different lengths', () => {
     expect(canReconfigure('a', 'bb')).toBe(false)
+  })
+  it('should return false if from and to have different number of unique chars', () => {
+    expect(canReconfigure('abc', 'ddd')).toBe(false)
   })
 })
